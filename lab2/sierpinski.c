@@ -51,9 +51,15 @@ int grid_display(char grid[]) {
     return 0;
 }
 
+int plot_point(char grid[], int x, int y, char pixel) {
+    grid[(nb_lines() - y - 1)*nb_columns()+x]=pixel;
+    return 0;
+} 
+
 int main(int argc, char *argv[]) {
     char grid[nb_lines() * nb_columns()];
     grid_init(grid, '*');
+    plot_point(grid, 5, 7, ' ');
     grid_display(grid);
     return 0;
 }
