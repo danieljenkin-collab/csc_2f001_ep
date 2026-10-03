@@ -52,14 +52,19 @@ int grid_display(char grid[]) {
 }
 
 int plot_point(char grid[], int x, int y, char pixel) {
-    grid[(nb_lines() - y - 1)*nb_columns()+x]=pixel;
+    if (x>nb_columns() || y>nb_lines()) {
+        printf("(x,y) not in grid \n");
+        exit(EXIT_FAILURE);
+    } else {
+        grid[(nb_lines() - y - 1)*nb_columns()+x]=pixel;
+    }
     return 0;
 } 
 
 int main(int argc, char *argv[]) {
     char grid[nb_lines() * nb_columns()];
     grid_init(grid, '*');
-    plot_point(grid, 5, 7, ' ');
+    plot_point(grid, 31, 15, ' ');
     grid_display(grid);
     return 0;
 }
