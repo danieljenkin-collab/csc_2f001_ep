@@ -26,16 +26,17 @@ int sort_insert(float tab[], int top, float val) {
     return 0;
 }
 
+int nb_columns() {
+    return 32;
+}
+
+int nb_lines() {
+    return 16;
+}
+
 int main(int argc, char *argv[]) {
-    float tab[]={1,3,5,7,0};
-    int top = 4;
-    float val = 10;
-    int i=0;
-    sort_insert(tab, top, val);
-    while (i<5) {
-        printf("%f ", tab[i]);
-        i++;
-    }
-    printf("\n");
+    char grid[nb_lines() * nb_columns()];
+    grid[1]='*';
+    printf("%c \n", grid[1]);
     return 0;
 }
