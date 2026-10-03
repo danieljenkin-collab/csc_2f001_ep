@@ -41,9 +41,19 @@ int grid_init(char grid[], char pixel) {
     return 0;
 }
 
+int grid_display(char grid[]) {
+    for (int j=0;j<nb_lines();j++){
+        for (int i=0;i<nb_columns();i++) {
+            printf("%c ", grid[i+j*nb_columns()]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[]) {
     char grid[nb_lines() * nb_columns()];
     grid_init(grid, '*');
-    printf("%c \n", grid[1]);
+    grid_display(grid);
     return 0;
 }
