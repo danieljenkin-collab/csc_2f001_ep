@@ -34,9 +34,16 @@ int nb_lines() {
     return 16;
 }
 
+int grid_init(char grid[], char pixel) {
+    for (int i=0; i<nb_columns()*nb_lines();i++) {
+        grid[i]=pixel;
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[]) {
     char grid[nb_lines() * nb_columns()];
-    grid[1]='*';
+    grid_init(grid, '*');
     printf("%c \n", grid[1]);
     return 0;
 }
