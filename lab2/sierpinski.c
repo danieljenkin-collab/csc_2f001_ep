@@ -94,7 +94,7 @@ int plot_poly_sweep(char grid[], struct point p[], int Np, int x, char pixel) {
     }
     printf("\n");
     for (int c=0; c < top; c+=2) {
-        plot_vline(grid, x, vlines[c], vlines[c+1], 'pixel');
+        plot_vline(grid, x, vlines[c], vlines[c+1], pixel);
     }
     return 0;
 }
