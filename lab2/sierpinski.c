@@ -12,7 +12,7 @@ int sort_get_index(int* p, float tab[], int top, float val) {
         i++;
     }
     *p = i;
-    printf("Insert %f at %d\n", val, i);
+    // printf("Insert %f at %d\n", val, i);
     return 0;
 }
 
@@ -79,19 +79,31 @@ int plot_vline(char grid[], int x, float fy0, float fy1, char pixel) {
 }
 
 int plot_poly_sweep(char grid[], struct point p[], int Np, int x, char pixel) {
+    float vlines[Np * 4];
+    int top = 0;
     int j = Np - 1;
     for (int i=0; i<Np; i++) {
-        printf("(%d,%d) ", j, i);
+        if ((p[i].x <= x && x <= p[j].x) || (p[j].x <= x && x <= p[i].x)) {
+            sort_insert(vlines, top, p[i].y + (x - p[i].x) * (p[j].y - p[i].y) / (p[j].x - p[i].x));
+            top++;
+        }
         j=i;
     }
+    for (int n = 0; n < top; n++) {
+        printf("%f ", vlines[n]);
+    }
     printf("\n");
+    for (int c=0; c < top; c+=2) {
+        plot_vline(grid, x, vlines[c], vlines[c+1], '-');
+    }
     return 0;
 }
 
 int plot_poly(char grid[], struct point p[], int Np, char pixel) {
     for (int x=0; x < nb_columns(); x++) {
-        printf("Sweep %d: \n", x);
+        printf("Sweep %d: ", x);
         plot_poly_sweep(grid, p, Np, x, pixel);
+        printf("\n");
     }
     return 0;
 }
