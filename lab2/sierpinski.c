@@ -80,7 +80,7 @@ int plot_vline(char grid[], int x, float fy0, float fy1, char pixel) {
 
 int plot_poly_sweep(char grid[], struct point p[], int Np, int x, char pixel) {
     for (int y=0; y<nb_lines(); y++) {
-        printf("%c \n", grid[y*nb_columns()+x]);
+        grid[y*nb_columns()+x] = pixel;
     }
     return 0;
 }
