@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct point { //type must be declared globally
+        float x;
+        float y;
+    };
+
 int sort_get_index(int* p, float tab[], int top, float val) {
     int i=0;
     while (val >= tab[i] && i < top) {
@@ -73,13 +78,26 @@ int plot_vline(char grid[], int x, float fy0, float fy1, char pixel) {
     return 0;
 }
 
+int plot_poly_sweep(char grid[], struct point p[], int Np, int x, char pixel) {
+    for (int y=0; y<nb_lines(); y++) {
+        printf("%c \n", grid[y*nb_columns()+x]);
+    }
+    return 0;
+}
+
+int plot_poly(char grid[], struct point p[], int Np, char pixel) {
+    for (int x=0; x < nb_columns(); x++) {
+        printf("Sweep %d: \n", x);
+        plot_poly_sweep(grid, p, Np, x, pixel);
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[]) {
     char grid[nb_lines() * nb_columns()];
+    struct point p[] = {{ 2, 13 }, { 10, 13 }, { 30, 7 }, { 10, 1 }, { 2, 1 }, { 18, 7 }};
     grid_init(grid, ' ');
-    plot_vline(grid, 1, 2, 3, '|');
-    plot_vline(grid, 2, 1.7, 3.3, '|');
-    plot_vline(grid, 3, 1.2, 3.8, '|');
-    plot_vline(grid, 7, 0.5, 1.5, '|');
+    plot_poly(grid, p, 6, '*');
     grid_display(grid);
     return 0;
 }
