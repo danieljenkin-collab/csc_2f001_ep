@@ -83,7 +83,7 @@ int plot_poly_sweep(char grid[], struct point p[], int Np, int x, char pixel) {
     int top = 0;
     int j = Np - 1;
     for (int i=0; i<Np; i++) {
-        if ((p[i].x <= x && x <= p[j].x) || (p[j].x <= x && x <= p[i].x)) {
+        if ((p[i].x <= x && x < p[j].x) || (p[j].x <= x && x < p[i].x)) {
             sort_insert(vlines, top, p[i].y + (x - p[i].x) * (p[j].y - p[i].y) / (p[j].x - p[i].x));
             top++;
         }
