@@ -9,11 +9,9 @@ BIN=army-pokemon
 
 all: $(BIN)
 
-army-pokemon: main.o monster.o army-pokemon.o
+army-%: main.o monster.o army-%.o
 	gcc $(LDFLAGS) -o $@ $^ $(LIBS)
 
-army-zombie: main.o monster.o army-zombie.o
-	gcc $(LDFLAGS) -o $@ $^ $(LIBS)
 
 
 %.o: %.c 
@@ -24,4 +22,4 @@ clean:
 
 main.o: main.c monster.h army.h
 monster.o: monster.c monster.h
-army.o: army-pokemon.c army.h
+army-%.o: army-%.c army.h
