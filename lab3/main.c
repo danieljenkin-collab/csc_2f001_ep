@@ -3,7 +3,7 @@
 #include "monster.h"
 
 int main(int argc, char *argv[]) {
-    char name[] = {'P','i','k','a','c','h','u','\0'}; //good to use a null character to detect end of string/array
+    char name[] = {'P','i','k','a','c','h','u', '\0'}; //a null-terminator allows you to treat the character array as a string %s and stops loops before entering empty space
     int health = 100;
     struct monster* p[10];
     char buf[10];
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
         p[i] = create_monster(buf, health);  
     }
     for (int i=0; i<10; i++) {
-        display_monster(p[i]);  //they are all displayed as Pikachu-9 because each monster name points to the same buf which got overwritten during each iteration of the loop
+        display_monster(p[i]); 
     }
     for (int i=0; i<10; i++) {
         delete_monster(p[i]); 
