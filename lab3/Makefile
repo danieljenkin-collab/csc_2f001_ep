@@ -9,7 +9,7 @@ BIN=army-pokemon
 
 all: $(BIN)
 
-army-pokemon: main.o monster.o
+army-pokemon: main.o monster.o army-pokemon.o
 	gcc $(LDFLAGS) -o $@ $^ $(LIBS)
 
 
@@ -19,5 +19,6 @@ army-pokemon: main.o monster.o
 clean:
 	rm -f $(BIN) *.o *~ 
 
-main.o: main.c monster.h
+main.o: main.c monster.h army.h
 monster.o: monster.c monster.h
+army.o: army-pokemon.c army.h
