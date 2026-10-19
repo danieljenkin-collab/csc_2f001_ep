@@ -3,50 +3,62 @@
 #include "monster.h"
 #include "army.h"
 
+struct army {
+  struct node* root; 
+  int top;                  
+  int stars;
+};
+
+struct node {
+    struct monster* monster;
+    struct node* next_node;
+};
+
+
 struct army* create_army() {
     struct army* a = malloc(sizeof(*a));
-    a->capacity=0;
-    a->monsters=NULL;
-    a->top=0;
+    a->root=NULL;
+    a->stars=0;
     return a;
 }
 
 int add_monster_to_army(struct monster* m, struct army* a) {
-    if (a -> capacity == a -> top) {
-        if (a -> capacity == 0){
-            struct monster** monsters = malloc(sizeof(*monsters));
-            a->capacity++;
-            monsters[a->top]=m;
-            free(a->monsters);
-            a -> monsters = monsters;
-        } else {
-            struct monster** monsters = malloc(2*a->capacity*sizeof(*monsters)); //p points to the first element of the array, *p is the value of the first element. To determine the size of the entire array you have to multiply by the number of elements (capacity)
-            a -> capacity *=2;
-            int i=0;
-            while (i < a -> top){
-                monsters[i] = a -> monsters[i];
-                i++;
-            }
-            monsters[a->top]=m;
-            free(a->monsters);
-            a -> monsters = monsters;
-        }
-    }else{    
-        a->monsters[a->top]=m;
+    if (a->root==NULL) {
+        a->root=malloc(sizeof(*(a->root)));
+        a->root->monster=m;
+        a->root->next_node=NULL;
     }
-    a->top++;
+    else{
+        struct node* p=a->root;
+        struct node* s;
+        while (p!=NULL) {
+            s=p;
+            p=p->next_node;
+        }
+        p=malloc(sizeof(*p));
+        p->monster=m;
+        p->next_node=NULL;
+        s->next_node=p;
+    }
     return 0;
 }
 
 int display_army(struct army* a) {
-    for (int i=0; i<(a -> top); i++) {
-        display_monster(a -> monsters[i]);
+    printf("This is a %d stars army \n", a->stars);
+    for (struct node* p=a->root; p!=NULL; p=p->next_node) {
+        display_monster(p->monster);
     }
     return 0;
 }
 
 int delete_army(struct army* a){
-    free(a -> monsters);
+    struct node* p=a->root;
+    struct node* s;
+    while (p!=NULL){
+        s=p->next_node;
+        free(p);
+        p=s;
+    }
     free(a);
     return 0;
 }
