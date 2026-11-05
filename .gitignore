@@ -15,3 +15,6 @@ lab4/main.o
 lab4/bilbao
 lab4/location.o
 lab4/shortest_path.o
+lab5/AST
+lab5/apply.o
+lab5/main.o
