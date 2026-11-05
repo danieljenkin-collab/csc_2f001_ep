@@ -55,6 +55,11 @@ std::string list_t::to_string(){
   return s;
 }
 
+node_t* list_t::eval(){
+  if(nb_elements==0){error("empty list");}
+  return at(0)->eval()->apply(this);
+}
+
 //keyword_t
 
 keyword_t::keyword_t(std::string id) : id{id} {}

@@ -22,6 +22,7 @@ struct list_t : node_t{
     node_t** elements;
     size_t nb_elements;
     size_t capacity;
+    node_t* eval();
 
     list_t();
 
@@ -41,6 +42,6 @@ struct keyword_t : node_t{
     std::string to_string();
 };
 
-struct add_t : public keyword_t{
+struct add_t : keyword_t{
     add_t();
 };
