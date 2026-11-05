@@ -10,13 +10,15 @@ BIN=bilbao
 
 all: $(BIN)
 
-bilbao: main.o
+bilbao: main.o location.o shortest_path.o
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 %.o: %.cpp
-	$(CXX) $(CFLAGS) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 clean:
 	rm -f $(BIN) *.o *~ 
 
-main.o: main.cpp
+main.o: main.cpp location.h
+location.o: location.cpp location.h
+shortest_path.o: shortest_path.cpp shortest_path.h location.h
