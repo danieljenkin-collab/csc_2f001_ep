@@ -5,6 +5,7 @@ void error(std::string str) {
   std::cout << "Error: " << str << std::endl;
   exit(1);
 }
+
 //node_t:
 node_t* node_t::eval() {return this;}
 
@@ -43,6 +44,7 @@ void list_t::append(node_t* value){
   }
   nb_elements++;
 }
+
 std::string list_t::to_string(){
   std::string s="(";
   for(int i=0; i<nb_elements; i++){
@@ -53,3 +55,12 @@ std::string list_t::to_string(){
   return s;
 }
 
+//keyword_t
+
+keyword_t::keyword_t(std::string id) : id{id} {}
+
+std::string keyword_t::to_string(){return ("<" + id + ">");}
+
+//add_t
+
+add_t::add_t() : keyword_t("+"){}
