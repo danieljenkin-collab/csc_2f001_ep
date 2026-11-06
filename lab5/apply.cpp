@@ -17,6 +17,8 @@ list_t* node_t::as_list(){error("Node is not necessarily a list");}
 
 uintptr_t node_t::int_value(){error("Node is not an integer");}
 
+bool node_t::is(std::string id) {return false;}
+
 //integer_t:
 std::string integer_t::to_string(){return std::to_string(value);}
 uintptr_t integer_t::int_value(){return value;}
@@ -73,10 +75,54 @@ std::string keyword_t::to_string(){return ("<" + id + ">");}
 //add_t
 
 add_t::add_t() : keyword_t("+"){}
+
 node_t* add_t::apply(list_t* list){
   integer_t* i = new integer_t(0);
   for(size_t n=1;n<list->nb_elements; n++){
     i->value+=list->at(n)->eval()->int_value();
   }
   return i;
+}
+
+//symbol_t
+symbol_t::symbol_t(std::string id) : id{id}{}
+
+bool symbol_t::is(std::string id) {return this->id==id;}
+
+std::string symbol_t::to_string(){return id;}
+
+//frame_t
+void frame_t::set(node_t* sym, node_t* value){
+  size_t i=0;
+  bool s = false;
+  while(i<nb_elements && !s){
+   if(sym->is(this->at(i)->as_list()->at(0)->to_string())){
+    this->at(i)->as_list()->set_at(1,value);
+    s=true;
+   }
+   i++;
+  }
+  if(!s){
+    list_t* l = new list_t();
+    l->append(sym);
+    l->append(value);
+    this->append(l);
+  }
+}
+
+node_t* frame_t::get(node_t* sym){
+  size_t i=0;
+  bool s = false;
+  while(i<nb_elements && !s){
+    if(sym->is(this->at(i)->as_list()->at(0)->to_string())){
+      s=true;
+    }else{
+      i++;
+    }
+  }
+  if (!s){
+    error("symbol not found");
+  }else{
+    return this->at(i)->as_list()->at(1);
+  }
 }
