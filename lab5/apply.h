@@ -9,13 +9,16 @@ struct node_t{
     virtual node_t* apply(list_t* list);
     virtual std::string to_string();
     virtual list_t* as_list();
+    virtual uintptr_t int_value();
 };
 
 struct integer_t : node_t{
     uintptr_t value;
+
     integer_t(uintptr_t value) : value{value}{};
 
     std::string to_string();
+    uintptr_t int_value();
 };
 
 struct list_t : node_t{
@@ -44,4 +47,5 @@ struct keyword_t : node_t{
 
 struct add_t : keyword_t{
     add_t();
+    node_t* apply(list_t* list);
 };
